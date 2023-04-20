@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -45,6 +46,9 @@ public class ArtActivity extends AppCompatActivity {
         setContentView(view);
         registerLauncher();
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
     }
 
 
@@ -64,7 +68,7 @@ public class ArtActivity extends AppCompatActivity {
             database = this.openOrCreateDatabase("Arts",MODE_PRIVATE,null);
             database.execSQL("CREATE TABLE IF NOT EXISTS arts(id INT PRIMARY KEY, artname VARCHAR, paintername VARCHAR, year VARCHAR, image BLOB)");
 
-            String sqlString = "INSERT INTO arts(artname,painternam,year,image) VALUES (?,?,?,?)";
+            String sqlString = "INSERT INTO arts(artname,paintername,year,image) VALUES (?,?,?,?)";
             SQLiteStatement sqLiteStatement = database.compileStatement(sqlString);
             sqLiteStatement.bindString(1,name);
             sqLiteStatement.bindString(2,artistName);

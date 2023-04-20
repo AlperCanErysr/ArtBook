@@ -3,7 +3,10 @@ package com.can_erysr.artbook;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     ArrayList<Art> artArrayList;
+    ArtAdapter artAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +32,20 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        getData();
 
         artArrayList = new ArrayList<>();
+        System.out.println("deneme");
+
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        System.out.println("deneme1");
+        artAdapter = new ArtAdapter(artArrayList);
+        System.out.println("deneme2");
+        binding.recyclerView.setAdapter(artAdapter);
+        System.out.println("deneme3");
+
+        getData();
+        System.out.println("deneme4");
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getData(){
+        System.out.println("deneme5");
         try {
 
             SQLiteDatabase sqLiteDatabase = this.openOrCreateDatabase("Arts",MODE_PRIVATE,null);
@@ -52,8 +68,9 @@ public class MainActivity extends AppCompatActivity {
                 artArrayList.add(art);
             }
 
+            artAdapter.notifyDataSetChanged();
             cursor.close();
-            
+
         }catch (Exception e){
             e.printStackTrace();
         }
