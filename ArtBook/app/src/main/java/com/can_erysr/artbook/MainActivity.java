@@ -34,17 +34,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
         artArrayList = new ArrayList<>();
-        System.out.println("deneme");
-
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        System.out.println("deneme1");
+
         artAdapter = new ArtAdapter(artArrayList);
-        System.out.println("deneme2");
+
         binding.recyclerView.setAdapter(artAdapter);
-        System.out.println("deneme3");
+
 
         getData();
-        System.out.println("deneme4");
+
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getData(){
-        System.out.println("deneme5");
+
         try {
 
             SQLiteDatabase sqLiteDatabase = this.openOrCreateDatabase("Arts",MODE_PRIVATE,null);
@@ -91,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (item.getItemId()==R.id.add_art){
             Intent intent = new Intent(this,ArtActivity.class);
+            intent.putExtra("info","new");
             startActivity(intent);
         }
 
